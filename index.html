@@ -5,17 +5,17 @@
   
 
   
-  <title>Hexo</title>
+  <title>会编程的阿童木</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="og:title" content="会编程的阿童木">
+<meta property="og:url" content="http://blog.codingcode.net/index.html">
+<meta property="og:site_name" content="会编程的阿童木">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="会编程的阿童木">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="会编程的阿童木" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -36,7 +36,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">会编程的阿童木</a>
       </h1>
       
     </div>
@@ -53,66 +53,16 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.codingcode.net"></form>
       </div>
     </div>
   </div>
 </header>
       <div class="outer">
         <section id="main">
-  
-    <article id="post-Let-s-Encrypt-with-ACME" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/21/Let-s-Encrypt-with-ACME/" class="article-date">
-  <time datetime="2020-05-21T11:59:28.000Z" itemprop="datePublished">2020-05-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/21/Let-s-Encrypt-with-ACME/">Let&#39;s Encrypt with ACME on CentOS8</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>现在各大浏览器非https网站都会有小叹号，强迫症患者自然是不能接受，但是ssl证书辣么贵，自然不是咱们的风格。<br>好在Let’s encrypt提供了免费的ssl证书， 唯一缺点就是有效期太短。<br>不过办法总比困难多， 通过ACEM我们可以便捷的申请证书，配合cronjob，定时定时自动更新，那有效期就不是大问题了。</p>
-<p>首先先了解下ACME并不是一个工具，而是一个协议，任何按照ACME相关规范实现的客户端都可以称为ACME客户端。<br>具体可以参见<a href="https://letsencrypt.org/zh-cn/docs/client-options/" target="_blank" rel="noopener">这里</a></p>
-<p>我们今天选择letsencrypt推荐的certbot。<br>yum上部分包比较旧，可能会导致请求失败，比如cloudflare的包，yum、是2.3，但是最新的certbot要求2.3.1以上。<br>所以建议使用pip安装相关软件软件，而不是yum。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install certbot certbot-nginx certbot-dns-cloudflare</span><br></pre></td></tr></table></figure>
-
-<p>cloudflare的api分token，key两种，具体区别就是key是可以访问所有的接口，而token可以设置权限。<br>我们这里按照certbot官方的要求，创建一个token，只有zone:zone:read,以及zone:dns:write权限。</p>
-<p>将token放到了~/.secret/certbot/cloudflare.ini中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Cloudflare API token used by Certbot</span><br><span class="line">dns_cloudflare_api_token &#x3D; YOUR_TOKEN</span><br></pre></td></tr></table></figure>
-
-<p>然后执行,记得-d YOUR_DOMAIN换成你自己的域名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly --dns-cloudflare --dns-cloudflare-credentials ~&#x2F;.secrets&#x2F;certbot&#x2F;cloudflare.ini -d YOUR_DOMAIN  -i nginx</span><br></pre></td></tr></table></figure>
-
-<p>到此，证书就安装完成了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- Congratulations! Your certificate and chain have been saved at:</span><br><span class="line">  &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;XXXXXX&#x2F;fullchain.pem</span><br><span class="line">  Your key file has been saved at:</span><br><span class="line">  &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;XXXXXX&#x2F;privkey.pem</span><br><span class="line">  Your cert will expire on 2020-08-20. To obtain a new or tweaked</span><br><span class="line">  version of this certificate in the future, simply run certbot</span><br><span class="line">  again. To non-interactively renew *all* of your certificates, run</span><br><span class="line">  &quot;certbot renew&quot;</span><br><span class="line">- If you like Certbot, please consider supporting our work by:</span><br><span class="line"></span><br><span class="line">  Donating to ISRG &#x2F; Let&#39;s Encrypt:   https:&#x2F;&#x2F;letsencrypt.org&#x2F;donate</span><br><span class="line">  Donating to EFF:                    https:&#x2F;&#x2F;eff.org&#x2F;donate-le</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/21/Let-s-Encrypt-with-ACME/" data-id="ckagq2vud000216mn7twhacvs" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
   
     <article id="post-Compile-Freeswitch-1-10-on-CentOS8" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -209,56 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/21/Compile-Freeswitch-1-10-on-CentOS8/" data-id="ckagcqoqq000116mna9nje74j" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/05/21/hello-world/" class="article-date">
-  <time datetime="2020-05-21T05:43:27.409Z" itemprop="datePublished">2020-05-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/21/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/21/hello-world/" data-id="ckagcox6q000016mn7hbx2gic" class="article-share-link">Share</a>
+      <a data-url="http://blog.codingcode.net/2020/05/21/Compile-Freeswitch-1-10-on-CentOS8/" data-id="ckagcqoqq000116mna9nje74j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -284,9 +185,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li></ul>
     </div>
   </div>
 
@@ -294,20 +195,12 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2020/05/21/Let-s-Encrypt-with-ACME/">Let&#39;s Encrypt with ACME on CentOS8</a>
-          </li>
-        
-          <li>
             <a href="/2020/05/21/Compile-Freeswitch-1-10-on-CentOS8/">Compile Freeswitch  1.10 on CentOS8</a>
-          </li>
-        
-          <li>
-            <a href="/2020/05/21/hello-world/">Hello World</a>
           </li>
         
       </ul>
@@ -322,7 +215,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
+      &copy; 2020 会编程的阿童木<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

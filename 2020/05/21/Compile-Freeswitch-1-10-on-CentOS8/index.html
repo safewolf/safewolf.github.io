@@ -5,21 +5,21 @@
   
 
   
-  <title>Compile Freeswitch  1.10 on CentOS8 | Hexo</title>
+  <title>Compile Freeswitch  1.10 on CentOS8 | 会编程的阿童木</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近由于工作需要，接手了一个需要使用freeswitch的项目。原先使用的是freeswitch 1.6，但是最近打算升级到最新版本1.10。安装过程中碰到了不少问题，好歹最后算是解决了。 其实网上能搜到很多文章，但是问题是很难找到一个说的都对的，所以这里整理下自己的安装过程，希望给大家有点参考。 由于本人本身不是通信行业出身，这次也是赶鸭子上架，所以如果有说的不对的，还希望有大神指正。 背景由于">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Compile Freeswitch  1.10 on CentOS8">
-<meta property="og:url" content="http://yoursite.com/2020/05/21/Compile-Freeswitch-1-10-on-CentOS8/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://blog.codingcode.net/2020/05/21/Compile-Freeswitch-1-10-on-CentOS8/index.html">
+<meta property="og:site_name" content="会编程的阿童木">
 <meta property="og:description" content="最近由于工作需要，接手了一个需要使用freeswitch的项目。原先使用的是freeswitch 1.6，但是最近打算升级到最新版本1.10。安装过程中碰到了不少问题，好歹最后算是解决了。 其实网上能搜到很多文章，但是问题是很难找到一个说的都对的，所以这里整理下自己的安装过程，希望给大家有点参考。 由于本人本身不是通信行业出身，这次也是赶鸭子上架，所以如果有说的不对的，还希望有大神指正。 背景由于">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-21T05:46:04.000Z">
 <meta property="article:modified_time" content="2020-05-29T08:35:10.987Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="会编程的阿童木">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="会编程的阿童木" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -40,7 +40,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
+        <a href="/" id="logo">会编程的阿童木</a>
       </h1>
       
     </div>
@@ -57,10 +57,10 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://blog.codingcode.net"></form>
       </div>
     </div>
   </div>
@@ -161,32 +161,13 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/21/Compile-Freeswitch-1-10-on-CentOS8/" data-id="ckagcqoqq000116mna9nje74j" class="article-share-link">Share</a>
+      <a data-url="http://blog.codingcode.net/2020/05/21/Compile-Freeswitch-1-10-on-CentOS8/" data-id="ckagcqoqq000116mna9nje74j" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-    <a href="/2020/05/21/Let-s-Encrypt-with-ACME/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Let&#39;s Encrypt with ACME on CentOS8
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/05/21/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
@@ -204,9 +185,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li></ul>
     </div>
   </div>
 
@@ -214,20 +195,12 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2020/05/21/Let-s-Encrypt-with-ACME/">Let&#39;s Encrypt with ACME on CentOS8</a>
-          </li>
-        
-          <li>
             <a href="/2020/05/21/Compile-Freeswitch-1-10-on-CentOS8/">Compile Freeswitch  1.10 on CentOS8</a>
-          </li>
-        
-          <li>
-            <a href="/2020/05/21/hello-world/">Hello World</a>
           </li>
         
       </ul>
@@ -242,7 +215,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
+      &copy; 2020 会编程的阿童木<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
